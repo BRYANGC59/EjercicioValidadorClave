@@ -11,3 +11,12 @@ class ReglaValidacion(ABC):
         else:
             return False
 
+    def _contiene_mayuscula(self, clave: str) -> bool:
+        return any(ch.isupper() for ch in clave)
+
+    def _contiene_minuscula(self, clave: str) -> bool:
+        return any(ch.islower() for ch in clave)
+
+    def _contiene_numero(self, clave: str) -> bool:
+        return any(ch.isdigit() for ch in clave)
+
