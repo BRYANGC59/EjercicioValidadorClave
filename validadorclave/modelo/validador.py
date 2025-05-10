@@ -25,4 +25,5 @@ class ReglaValidacionGanimedes:
     def __init__(self):
         pass
 
-   
+    def contiene_caracter_especial(self, clave: str) -> bool:
+        return any(not ch.isalnum() for ch in clave)
