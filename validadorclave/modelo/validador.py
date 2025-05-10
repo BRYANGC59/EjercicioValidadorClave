@@ -20,3 +20,9 @@ class ReglaValidacion(ABC):
     def _contiene_numero(self, clave: str) -> bool:
         return any(ch.isdigit() for ch in clave)
 
+class ReglaValidacionGanimedes:
+
+    def __init__(self):
+        pass
+
+   
