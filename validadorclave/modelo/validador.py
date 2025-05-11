@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+from validadorclave.modelo.errores import *
+
+
 class ReglaValidacion(ABC):
 
     def __init__(self, longitud_esperada: int):
@@ -34,15 +37,15 @@ class ReglaValidacionGanimedes(ReglaValidacion):
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            return False
+            raise NoCumpleLongitudMinimaError(ValidadorError)
         if not self._contiene_mayuscula(clave):
-            return False
+            raise NoTieneLetraMayusculaError(ValidadorError)
         if not self._contiene_minuscula(clave):
-            return False
+            raise NoTieneLetraMinusculaError(ValidadorError)
         if not self._contiene_numero(clave):
-            return False
+            raise NoTieneNumeroError(ValidadorError)
         if not self.contiene_caracter_especial(clave):
-            return False
+            raise NoTieneCaracterEspecialError(ValidadorError)
 
         return True
 
@@ -67,10 +70,14 @@ class ReglaValidacionCalisto(ReglaValidacion):
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            return False
+            raise NoCumpleLongitudMinimaError(ValidadorError)
         if not self._contiene_numero(clave):
-            return False
+            raise NoTieneNumeroError(ValidadorError)
         if not self.contiene_calisto(clave):
-            return False
+            raise NoTienePalabraSecretaError(ValidadorError)
 
         return True
+
+
+
+
