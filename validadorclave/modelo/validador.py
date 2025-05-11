@@ -37,15 +37,15 @@ class ReglaValidacionGanimedes(ReglaValidacion):
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            raise NoCumpleLongitudMinimaError(ValidadorError)
+            raise NoCumpleLongitudMinimaError("La longitud de la clave no cumple las condiciones")
         if not self._contiene_mayuscula(clave):
-            raise NoTieneLetraMayusculaError(ValidadorError)
+            raise NoTieneLetraMayusculaError("La clave no tiene ninguna mayuscula")
         if not self._contiene_minuscula(clave):
-            raise NoTieneLetraMinusculaError(ValidadorError)
+            raise NoTieneLetraMinusculaError("La clave no tiene ninguna minuscula")
         if not self._contiene_numero(clave):
-            raise NoTieneNumeroError(ValidadorError)
+            raise NoTieneNumeroError("La clave no tiene ningun numero")
         if not self.contiene_caracter_especial(clave):
-            raise NoTieneCaracterEspecialError(ValidadorError)
+            raise NoTieneCaracterEspecialError("La clave no tiene ningun caracter especial")
 
         return True
 
@@ -70,11 +70,11 @@ class ReglaValidacionCalisto(ReglaValidacion):
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            raise NoCumpleLongitudMinimaError(ValidadorError)
+            raise NoCumpleLongitudMinimaError("La longitud de la clave no cumple las condiciones")
         if not self._contiene_numero(clave):
-            raise NoTieneNumeroError(ValidadorError)
+            raise NoTieneNumeroError("La clave no tiene ningun numero")
         if not self.contiene_calisto(clave):
-            raise NoTienePalabraSecretaError(ValidadorError)
+            raise NoTienePalabraSecretaError("La clave no contiene la palabra calisto")
 
         return True
 
