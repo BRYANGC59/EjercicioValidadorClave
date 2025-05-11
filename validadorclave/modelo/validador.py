@@ -33,7 +33,8 @@ class ReglaValidacionGanimedes(ReglaValidacion):
         super().__init__(longitud_esperada=8)
 
     def contiene_caracter_especial(self, clave: str)-> bool:
-        return any(not ch.isalnum() for ch in clave)
+        caracter_especial = {"@", "_", "#", "$", "%"}
+        return any(ch in caracter_especial for ch in clave)
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
@@ -56,17 +57,16 @@ class ReglaValidacionCalisto(ReglaValidacion):
         super().__init__(longitud_esperada=6)
 
     def contiene_calisto(self, clave: str)-> bool:
-        account = 0
-        if "calisto" in clave.lower():
-            for ch in clave:
-                if ch.isupper():
-                    account += 1
-            if 1 < account < len(clave):
-                return True
-            else:
-                return False
-        else:
+        clave_lower = clave.lower()
+        if "calisto" not in clave_lower:
             return False
+
+        inicio = clave_lower.find("calisto")
+        fin = inicio + len("calisto")
+        subcadena_original = clave[inicio:fin]
+        mayusculas = sum(1 for ch in subcadena_original if ch.isupper())
+
+        return 2 <= mayusculas < 7
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
