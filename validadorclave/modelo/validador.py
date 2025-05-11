@@ -6,7 +6,7 @@ class ReglaValidacion(ABC):
         self.longitud_esperada: int = longitud_esperada
 
     def _validar_longitud(self, clave: str) -> bool:
-        if len(clave) >= self.longitud_esperada:
+        if len(clave) > self.longitud_esperada:
             return True
         else:
             return False
@@ -32,8 +32,20 @@ class ReglaValidacionGanimedes(ReglaValidacion):
     def contiene_caracter_especial(self, clave: str)-> bool:
         return any(not ch.isalnum() for ch in clave)
 
-    def es_valida(self):
-        pass
+    def es_valida(self, clave: str) -> bool:
+        if not self._validar_longitud(clave):
+            return False
+        if not self._contiene_mayuscula(clave):
+            return False
+        if not self._contiene_minuscula(clave):
+            return False
+        if not self._contiene_numero(clave):
+            return False
+        if not self.contiene_caracter_especial(clave):
+            return False
+
+        return True
+
 
 class ReglaValidacionCalisto(ReglaValidacion):
 
@@ -44,7 +56,7 @@ class ReglaValidacionCalisto(ReglaValidacion):
         account = 0
         if "calisto" in clave.lower():
             for ch in clave:
-                if ch.isupper:
+                if ch.isupper():
                     account += 1
             if 1 < account < len(clave):
                 return True
@@ -53,5 +65,12 @@ class ReglaValidacionCalisto(ReglaValidacion):
         else:
             return False
 
-    def es_valida(self):
-        pass
+    def es_valida(self, clave: str) -> bool:
+        if not self._validar_longitud(clave):
+            return False
+        if not self._contiene_numero(clave):
+            return False
+        if not self.contiene_calisto(clave):
+            return False
+
+        return True
